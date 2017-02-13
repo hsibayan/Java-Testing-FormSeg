@@ -26,15 +26,28 @@ public class Main {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
 		Main m = new Main();
+
 		int[] form1 = {1, 1, 1, 1, 3, 3, 2, 2, 3};
-		m.start(form1, "form7.png");
+		m.start(form1, "Slide1.JPG", "segmented-1");
+
+		int[] form2 = {1, 1, 2};
+		m.start(form2, "Slide2.JPG", "segmented-2");
+
+		int[] form3 = {1, 1, 3};
+		m.start(form3, "Slide3.JPG", "segmented-3");
+		
+		int[] form4 = {1, 1, 1, 1, 2, 3};
+		m.start(form4, "Slide4.JPG", "segmented-4");
+
+		int[] form5 = {1, 1, 1, 1, 2, 3, 1};
+		m.start(form5, "Slide5.JPG", "segmented-5");
 
 		System.out.println("dan");
 	}
 	
-	private void start(int[] field_types, String img_filename) {
+	private void start(int[] field_types, String img_filename, String parent_filename) {
 		
-		String parent_folder = "segmented-1";
+		String parent_folder = parent_filename;
 
 		createFolder(parent_folder);
 		
@@ -57,7 +70,7 @@ public class Main {
 				String temp_out = parent_folder + File.separator + i;
 				
 				switch(field_types[i]) {
-					case FIELDTYPE_TEXT: crop_text(contours_1.get(i), temp_out);break;
+					case FIELDTYPE_TEXT: crop_text(contours_1.get(i), temp_out); break;
 					case FIELDTYPE_MARK: crop_marks(contours_1.get(i), temp_out); break;
 					case FIELDTYPE_BLOB: crop_blob(contours_1.get(i), temp_out);	
 				}
@@ -65,8 +78,6 @@ public class Main {
 		}
 		else {
 			System.out.println("No of Actual Major Segments & Extracted Major Segments --> Not Equal");
-			System.out.println("con > " + contours_1.size());
-			System.out.println("passed > " + field_types.length);
 		}
 		
 	}
