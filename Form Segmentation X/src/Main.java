@@ -15,6 +15,8 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import helpers.ComputerVision;
+
 public class Main {
 
 	private static ComputerVision cv = ComputerVision.getInstance();
@@ -22,6 +24,7 @@ public class Main {
 	private final int FIELDTYPE_MARK = 2;
 	private final int FIELDTYPE_BLOB = 3;
 	
+	/*
 	public static void main(String args[]) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
@@ -33,7 +36,7 @@ public class Main {
 		int[] form2 = {1, 1, 2};
 		m.start(form2, "Slide2.JPG", "segmented-2");
 
-		int[] form3 = {1, 1, 3};
+		int[] form3 = {1, 1, 2};
 		m.start(form3, "Slide3.JPG", "segmented-3");
 		
 		int[] form4 = {1, 1, 1, 1, 2, 3};
@@ -57,7 +60,7 @@ public class Main {
 		Mat bw = cv.threshold(gray, true);
 		
 		// PART 1
-		ArrayList<Mat> contours_1 = cv.contour2(bw, true, 5, 200);
+		ArrayList<Mat> contours_1 = cv.contour(bw, true, 5, 200);
 		int length = contours_1.size()-1;
 		
 		// IF actual major segments == extracted major segments
@@ -83,7 +86,7 @@ public class Main {
 	}
 		
 	private void crop_text(Mat img, String out_filename) {
-		ArrayList<Mat> contours = cv.contour2(img, false, 0, 200);
+		ArrayList<Mat> contours = cv.contour(img, false, 0, 200);
 		save(out_filename, contours);
 		
 		for(int i = 0; i < contours.size()-1; i++) {
@@ -94,12 +97,12 @@ public class Main {
 	
 	private void crop_letterboxes(Mat img, String out_filename) {
 		img = cv.threshold(img, true);
-		ArrayList<Mat> contours = cv.contour2(img, true, 1, 0);
+		ArrayList<Mat> contours = cv.contour(img, true, 1, 0);
 		save(out_filename, contours);
 	}
 	
 	private void crop_marks(Mat img, String out_filename) {
-		ArrayList<Mat> contours = cv.contour2(img, false, 0, 150);
+		ArrayList<Mat> contours = cv.contour(img, false, 0, 150);
 		save(out_filename, contours);
 	}
 
@@ -126,5 +129,7 @@ public class Main {
 		createFolder(out_filename);
 		saveContours(out_filename, contours);
 	}
+	
+	*/
 	
 }
