@@ -78,7 +78,8 @@ public class TextSegmentation {
 			
 			System.out.println("    3. " + letterContours.size() + "\n");
 			
-			extractLetters(letterContours, orig);
+	    	Imgproc.cvtColor(orig, orig, Imgproc.COLOR_BGR2GRAY);
+	    	List<Mat> noborder = borderRemoval(letterContours, orig);
 		}
     }
     
@@ -145,35 +146,6 @@ public class TextSegmentation {
 
     	return contours2;
     }
-    
-    public List<Mat> extractLetters(List<MatOfPoint> borderContours, Mat orig) {
-    	List<Mat> extracted = new ArrayList<>();
-    	Scalar black = new Scalar(0);
-    	int size = borderContours.size();
-    	List<MatOfPoint> letter;
-    	Mat ext;
-
-    	Imgproc.cvtColor(orig, orig, Imgproc.COLOR_BGR2GRAY);
-    	
-    	List<Mat> noborder = borderRemoval(borderContours, orig);
-    	Mat temp;
-    	
-    	for(int i = 0; i < size; i++) {
-    		temp = noborder.get(i);
-            
-            // largest contour -> the letter
-        	letter = cv.findContours(temp, Imgproc.RETR_CCOMP);
-        	letter = getLargestContours(letter, 1);
-        	
-        	// drawing on white background
-        	ext = new Mat(temp.height(), temp.width(), CvType.CV_8UC1, new Scalar(255));
-        	Imgproc.drawContours(ext, letter, 0, black, -1);
-        	
-    		Imgcodecs.imwrite("asd" + File.separator  + "_ltr_" + i + ".png", ext);
-    	}
-    	
-    	return extracted;
-    }
 
     public List<Mat> borderRemoval(List<MatOfPoint> borderContours, Mat image) {
     	List<Mat> resultImages = new ArrayList<>();
@@ -197,11 +169,13 @@ public class TextSegmentation {
             // submats
         	matB = filled.submat(rect);
         	matA = image.submat(rect);
+        	cv.invert(matA);
         	
-        	// subtract - removal of border
-    		result = new Mat(image.rows(), image.cols(), CvType.CV_8UC1);
-            
-            Core.subtract(matA, matB, result);
+        	// add - removal of border
+    		result = new Mat(matA.rows(), matA.cols(), CvType.CV_8UC1);
+
+            Core.add(matA, matB, result);
+    		Imgcodecs.imwrite("asd" + File.separator  + "_ltr_" + i + ".png", result);
             
             resultImages.add(result);
     	}
