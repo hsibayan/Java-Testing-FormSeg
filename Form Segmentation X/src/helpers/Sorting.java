@@ -12,8 +12,8 @@ import org.opencv.imgproc.Imgproc;
 public class Sorting {
 	
     public final static int TEXTBOX_OFFSET = 20;
-    public final boolean SORT_ASC = true;
-    public final boolean SORT_DESC = false;
+    public final boolean ORDER_ASC = true;
+    public final boolean ORDER_DESC = false;
 	
     private static Sorting cv = new Sorting();
     public static Sorting getInstance() { return cv; }

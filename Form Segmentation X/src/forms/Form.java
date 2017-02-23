@@ -14,11 +14,11 @@ public class Form {
 	int guideCount;
 	private int[] guideMatch;
 	ArrayList<MatOfPoint> guideContours;
-	ArrayList<MatOfPoint> fieldContours;
+	ArrayList<MatOfPoint> groupContours;
 	
 	// Major Field Types
-	private int fieldCount;
-	private int[] fieldTypes;
+	private int groupCount;
+	private int[] groupTypes;
 	
 	// Total First Layer External Contours
 	int totalContours;
@@ -26,7 +26,7 @@ public class Form {
 	// Element Count for each Major Field
 	private int[] elementCount;
 	
-	private List<List<Object>> fields;
+	private List<List<Object>> groups;
 
 	public Mat getImage() {
 		return image;
@@ -36,32 +36,32 @@ public class Form {
 		this.image = image;
 	}
 
-	public int getFieldCount() {
-		return fieldCount;
+	public int getGroupCount() {
+		return groupCount;
 	}
 
-	public void setFieldCount(int fieldCount) {
-		this.fieldCount = fieldCount;
+	public void setGroupCount(int fieldCount) {
+		this.groupCount = fieldCount;
 	}
 
-	public int[] getFieldTypes() {
-		return fieldTypes;
+	public int[] getGroupTypes() {
+		return groupTypes;
 	}
 
-	public void setFieldTypes(int[] fieldTypes) {
-		this.fieldTypes = fieldTypes;
+	public void setGroupTypes(int[] fieldTypes) {
+		this.groupTypes = fieldTypes;
 	}
 
-	public List<List<Object>> getFields() {
-		return fields;
+	public List<List<Object>> getGroups() {
+		return groups;
 	}
 
-	public void setFields() {
-		this.fields = new ArrayList<>();
+	public void setGroups() {
+		this.groups = new ArrayList<>();
 	}
 
-	public void addField(List<Object> field) {
-		this.fields.add(field);
+	public void addGroup(List<Object> field) {
+		this.groups.add(field);
 	}
 
 	public int[] getElementCount() {

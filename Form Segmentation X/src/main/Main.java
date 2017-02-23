@@ -14,7 +14,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
-		Mat image = Imgcodecs.imread("Output2.jpg");
+		Mat image = Imgcodecs.imread("x1.jpg");
 		Form form = new FormPatientInfo();
 		form.setImage(image);
 		

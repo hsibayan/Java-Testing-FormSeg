@@ -45,10 +45,10 @@ public class FormPatientInfo extends Form {
     	this.guideCount = 6;
     	int[] guideMatch = {1, 2, 3, 4, 5, 5, 6};
     	this.setGuideMatch(guideMatch);
-    	this.setFieldCount(7);
+    	this.setGroupCount(7);
     	int[] fieldTypes = {1, 1, 3, 3, 2, 2, 3};
-    	this.setFieldTypes(fieldTypes);
-    	this.totalContours = guideCount + getFieldCount();
+    	this.setGroupTypes(fieldTypes);
+    	this.totalContours = guideCount + getGroupCount();
     	int[] elementCount = {3, 9, 1, 1, 8, 9, 1};
     	this.setElementCount(elementCount);
 
@@ -68,9 +68,9 @@ public class FormPatientInfo extends Form {
     	patientDetails.add(new Text("Cellphone Number", 11));
     	patientDetails.add(new Text("Guardian Name", 25));
     	
-    	this.setFields();
-    	this.addField(basicDetails);
-    	this.addField(patientDetails);
+    	this.setGroups();
+    	this.addGroup(basicDetails);
+    	this.addGroup(patientDetails);
     	
     }
 

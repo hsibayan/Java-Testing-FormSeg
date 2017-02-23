@@ -73,11 +73,11 @@ public class Segmentation2 {
 		fieldContours = new ArrayList<>(contours);
 		guideContours = new ArrayList<>(contours);
 		
-		fieldContours = segmentMajorFields(fieldContours, form.getFieldCount());
+		fieldContours = segmentMajorFields(fieldContours, form.getGroupCount());
 //		guideContours = segmentGuides(guideContours, form.guideCount);
 		
-		int[] fieldTypes = form.getFieldTypes();
-		List<List<Object>> fields = form.getFields();
+		int[] fieldTypes = form.getGroupTypes();
+		List<List<Object>> fields = form.getGroups();
 		
 		// IF major fields are aligned based on guide boxes
 //		if(isAlignedY(form, guideContours, fieldContours)) {
