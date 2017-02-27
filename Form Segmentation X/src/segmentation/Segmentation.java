@@ -53,7 +53,6 @@ public class Segmentation {
 		paperImage = cropBorder(paperImage, BORDER_THICKNESS_PAPER);
 		cv.preprocess(paperImage);
 		Imgcodecs.imwrite("test.png", paperImage);
-//		cv.morph(paperImage, Imgproc.MORPH_OPEN, Imgproc.MORPH_ELLIPSE, 3);
 		
 		groupContours = cv.findContours(paperImage.clone(), Imgproc.RETR_EXTERNAL);
 		groupContours = filterGroups(groupContours, form.getGroupCount());
@@ -65,13 +64,11 @@ public class Segmentation {
 		Mat sampleImage = paperImage.clone();
 		cv.invert(sampleImage);
 
-//		List<Mat> groupImages = borderRemoval(groupContours, sampleImage.clone());
 		List<Mat> groupImages = filter.borderRemoval(groupContours, sampleImage.clone(), true);
 		
 		int size = groupImages.size();
 				
 		for(int i = 0; i < size; i++) {
-//			List<MatOfPoint> elementContours = cv.findContours(groupImages.get(i).clone(), Imgproc.RETR_EXTERNAL);
 			
 			switch(groupTypes[i]) {
 				case FIELDTYPE_TEXT: 

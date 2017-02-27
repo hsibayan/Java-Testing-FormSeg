@@ -59,7 +59,6 @@ public class Filtering {
     			
 	    	}
     		else {
-//    			Imgcodecs.imwrite("inside_"+i+".png", matA);
     			
         		// fill
         		Imgproc.drawContours(filled, borderContours, i, black);

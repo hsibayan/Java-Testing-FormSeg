@@ -80,7 +80,7 @@ public class TextSegmentation {
     		cv.invert(textImageInv);
 			cv.morph(textImageInv, Imgproc.MORPH_ERODE, Imgproc.MORPH_RECT, 5);
 			letterContours = cv.findContours(textImageInv.clone(), Imgproc.RETR_EXTERNAL);
-			letterContours = getMidYContours(letterContours, letterCount, textImage.rows()/2, textImage, "_" + groupIndex + "_" + textIndex);	
+			letterContours = filterMidYContours(letterContours, letterCount, textImage.rows()/2, textImage, "_" + groupIndex + "_" + textIndex);	
 			temp = redrawContours(letterContours, textImage.rows(), textImage.cols());
 			cv.morph(temp, Imgproc.MORPH_DILATE, Imgproc.MORPH_RECT, 5);
 	    	letterContours = cv.findContours(temp, Imgproc.RETR_EXTERNAL);
@@ -161,7 +161,7 @@ public class TextSegmentation {
     	return image.submat(contourRect);
     }
     
-    public List<MatOfPoint> getMidYContours(List<MatOfPoint> contours, int elementCount, int midY, Mat subImage, String name) {
+    public List<MatOfPoint> filterMidYContours(List<MatOfPoint> contours, int elementCount, int midY, Mat subImage, String name) {
     	List<MatOfPoint> contours2 = new ArrayList<>();
     	Rect rect;
     	int size = contours.size();
