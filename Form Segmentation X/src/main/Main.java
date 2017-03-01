@@ -23,6 +23,7 @@ public class Main {
 		s.segment(form);
 		System.out.println("[END]");
 		
+		
 	}
 	
 }
