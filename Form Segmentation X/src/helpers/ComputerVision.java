@@ -1,6 +1,8 @@
 package helpers;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
@@ -21,7 +23,7 @@ public class ComputerVision {
     }
 
     public void threshold(Mat image, boolean isInverted) {
-        Imgproc.adaptiveThreshold(image, image, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 15, 6);
+        Imgproc.adaptiveThreshold(image, image, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 105, 6);
         if(isInverted)
         	Imgproc.threshold(image, image, 100, 255, Imgproc.THRESH_BINARY_INV);
     }
@@ -46,4 +48,49 @@ public class ComputerVision {
         Collections.reverse(contoursFound);
         return contoursFound;
     }
+    
+    
+    
+    public void gaussianBlur(Mat image){
+    	 Imgproc.GaussianBlur(image, image,new Size(45,45), 0);
+    }
+    
+    
+    public ArrayList<MatOfPoint> getSquareContours(Mat image, int size){
+        MatOfPoint temp;
+        ArrayList<MatOfPoint> contours = new ArrayList<>();
+        Imgproc.findContours(image, contours, new Mat(), Imgproc.RETR_LIST,Imgproc.CHAIN_APPROX_SIMPLE);
+        ArrayList<MatOfPoint> squares = new ArrayList<>();
+        for(int i=0; i< contours.size();i++){
+            if (Imgproc.contourArea(contours.get(i)) > size){
+                    temp = this.getSquareApprox(contours.get(i));
+                    if(temp!=null){
+                        squares.add(temp);
+                    }
+            }
+        }
+        return squares;
+    }
+    
+    
+    
+    public MatOfPoint getSquareApprox(MatOfPoint thisContour){
+        MatOfPoint2f thisContour2f = new MatOfPoint2f();
+        MatOfPoint approxContour = new MatOfPoint();
+        MatOfPoint2f approxContour2f = new MatOfPoint2f();
+
+        thisContour.convertTo(thisContour2f, CvType.CV_32FC2);
+        double perimeter = Imgproc.arcLength(thisContour2f,true);
+
+        Imgproc.approxPolyDP(thisContour2f, approxContour2f, perimeter*0.04, true);
+        approxContour2f.convertTo(approxContour, CvType.CV_32S);
+
+        if (approxContour.size().height == 4) {
+            return approxContour;
+        }
+        return null;
+    }
+    
+    
+    
 }
